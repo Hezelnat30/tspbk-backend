@@ -1,10 +1,8 @@
 import express, { Request, Response } from "express";
 import cors from "cors";
 import { PORT } from "./utils/env";
-import connect from "./utils/database";
 import dbConnection from "./utils/database";
 import authRouter from "./routes/auth.route";
-import crypto from "crypto";
 
 const app = express();
 app.use(cors());
