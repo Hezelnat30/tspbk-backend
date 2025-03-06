@@ -7,7 +7,6 @@ import songRoute from "./routes/song.route";
 import mediaRoute from "./routes/media.route";
 
 async function init() {
-  // Express app - buat ini terlebih dahulu
   const app = express();
   app.use(cors());
   app.use(express.json());
@@ -23,15 +22,12 @@ async function init() {
   apiRoutes.forEach((route) => app.use("/api/v1", route));
 
   try {
-    // Database - coba connect tapi jangan biarkan crash aplikasi
     try {
       const dbStatus = await connect();
       console.log("Database status: ", dbStatus);
     } catch (dbError) {
-      // Jangan biarkan error database menghentikan aplikasi
       console.error("Database connection error:", dbError);
     }
-
     // Start server
     app.listen(PORT, () => {
       console.log(`Server running on port http://localhost:${PORT}`);
@@ -42,5 +38,3 @@ async function init() {
 }
 
 init();
-
-export { init };
