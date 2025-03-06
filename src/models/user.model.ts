@@ -1,6 +1,7 @@
 import mongoose from "mongoose";
 import encryption from "../utils/encryption";
-import { ROLES, User } from "../utils/interface";
+import { ROLES } from "../utils/constant";
+import { User } from "../utils/interface";
 
 const Schema = mongoose.Schema;
 
@@ -32,5 +33,4 @@ UserSchema.pre("save", async function (next) {
 });
 
 const UserModel = mongoose.model("User", UserSchema);
-
 export default UserModel;
