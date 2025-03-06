@@ -1,22 +1,16 @@
 import mongoose from "mongoose";
 import { MONGO_URL } from "./env";
 
-const dbConnection = () => {
+const dbConnection = async () => {
   try {
-    mongoose.connect(MONGO_URL, {
+    await mongoose.connect(MONGO_URL, {
       dbName: "db-tspbk",
     });
+    return Promise.resolve(`Database connected at ${MONGO_URL}`);
   } catch (error) {
-    console.log("Database connection error:", error);
+    console.log(error);
     process.exit(1);
   }
-  const dbConnection = mongoose.connection;
-  dbConnection.once("open", () => {
-    console.log("Database connected at :", MONGO_URL);
-  });
-  dbConnection.on("error", (error) => {
-    console.log("Database connection error:", error);
-  });
 };
 
 export default dbConnection;

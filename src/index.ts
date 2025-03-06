@@ -11,10 +11,11 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-dbConnection();
-
-function init() {
+async function init() {
   try {
+    const dbStatus = await dbConnection();
+    console.log(dbStatus);
+
     app.get("/", (req, res: Response) => {
       res.status(200).json({
         message: "Server is running!",
