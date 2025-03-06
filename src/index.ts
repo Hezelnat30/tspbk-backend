@@ -9,8 +9,8 @@ import mediaRoute from "./routes/media.route";
 async function init() {
   try {
     // Database
-    const dbStatus = await connect();
-    console.log("Database status: ", dbStatus);
+    // const dbStatus = await connect();
+    // console.log("Database status: ", dbStatus);
 
     // Express app
     const app = express();
