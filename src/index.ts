@@ -7,16 +7,14 @@ import songRoute from "./routes/song.route";
 import mediaRoute from "./routes/media.route";
 import dbConnection from "./utils/database";
 
-async function init() {
+const app = express();
+app.use(cors());
+app.use(express.json());
+
+dbConnection();
+
+function init() {
   try {
-    // Database
-    dbConnection();
-
-    // Express app
-    const app = express();
-    app.use(cors());
-    app.use(express.json());
-
     app.get("/", (req, res: Response) => {
       res.status(200).json({
         message: "Server is running!",
