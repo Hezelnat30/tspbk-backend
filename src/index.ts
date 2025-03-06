@@ -6,16 +6,18 @@ import authRouter from "./routes/auth.route";
 import songRoute from "./routes/song.route";
 import mediaRoute from "./routes/media.route";
 
-const app = express();
-app.use(cors());
-app.use(express.json());
-
 async function init() {
   try {
+    // Database
     const dbStatus = await connect();
     console.log("Database status: ", dbStatus);
 
-    app.get("/", (req: Request, res: Response) => {
+    // Express app
+    const app = express();
+    app.use(cors());
+    app.use(express.json());
+
+    app.get("/", (req, res: Response) => {
       res.status(200).json({
         message: "Server is running!",
         data: null,
@@ -35,5 +37,3 @@ async function init() {
 }
 
 init();
-
-export default app;
