@@ -5,31 +5,33 @@ import connect from "./utils/database";
 import authRouter from "./routes/auth.route";
 import songRoute from "./routes/song.route";
 import mediaRoute from "./routes/media.route";
+import dbConnection from "./utils/database";
 
 const app = express();
 app.use(cors());
 app.use(express.json());
 
-async function db() {
+async function init() {
   try {
-    const dbStatus = await connect();
-    console.log("Database status: ", dbStatus);
+    const dbStatus = await dbConnection();
+    console.log(dbStatus);
+    app.get("/", (req, res: Response) => {
+      res.status(200).json({
+        message: "Server is running!",
+        data: null,
+      });
+    });
+
+    const apiRoutes = [authRouter, songRoute, mediaRoute];
+
+    apiRoutes.forEach((route) => app.use("/api/v1", route));
+
+    app.listen(PORT, () => {
+      console.log(`Server running on port http://localhost:${PORT}`);
+    });
   } catch (error) {
-    console.error("Database connection error:", error);
+    console.log(error);
   }
 }
-db();
 
-app.get("/", (req, res: Response) => {
-  res.status(200).json({
-    message: "Server is running!",
-    data: null,
-  });
-});
-
-const apiRoutes = [authRouter, songRoute, mediaRoute];
-apiRoutes.forEach((route) => app.use("/api/v1", route));
-
-app.listen(PORT, () => {
-  console.log(`Server running on port http://localhost:${PORT}`);
-});
+init();
