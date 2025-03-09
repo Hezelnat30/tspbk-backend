@@ -6,6 +6,7 @@ import authRouter from "./routes/auth.route";
 import songRoute from "./routes/song.route";
 import mediaRoute from "./routes/media.route";
 import dbConnection from "./utils/database";
+import worshipLeaderRoute from "./routes/worshipLeader.route";
 
 const app = express();
 app.use(cors());
@@ -21,7 +22,7 @@ function init() {
       });
     });
 
-    const apiRoutes = [authRouter, songRoute, mediaRoute];
+    const apiRoutes = [authRouter, songRoute, mediaRoute, worshipLeaderRoute];
 
     apiRoutes.forEach((route) => app.use("/api/v1", route));
 

@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import { IPaginationQuery, IReqUser, Song } from "../utils/interface";
-import { addSongSchema } from "../utils/schema";
+import { addSongSchema, updateSongSchema } from "../utils/schema";
 import SongModel from "../models/song.model";
 import response from "../utils/response";
 import { FilterQuery } from "mongoose";
@@ -38,6 +38,7 @@ export default {
   async updateSong(req: IReqUser, res: Response) {
     try {
       const { id } = req.params;
+      await updateSongSchema.validate(req.body);
       const result = await SongModel.findByIdAndUpdate(id, req.body, {
         new: true,
       });
@@ -72,13 +73,14 @@ export default {
         .exec();
 
       const totalDoc = await SongModel.countDocuments(query);
+      const currentPage = Number(page);
 
       if (totalDoc === 0)
         return response.PAGINATION(
           res,
           result,
           {
-            current: page,
+            current: currentPage,
             totalPages: Math.ceil(totalDoc / limit),
             totalData: totalDoc,
           },
@@ -112,4 +114,5 @@ export default {
       return response.ERROR(res, error, "Failed to find a song");
     }
   },
+  async getSongsByWorshipLeader(req: IReqUser, res: Response) {},
 };

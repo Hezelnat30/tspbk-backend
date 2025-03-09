@@ -10,6 +10,11 @@ mediaRoute.post(
   [authMiddleware, mediaMiddleware.single("file")],
   mediaController.single
 );
+mediaRoute.post(
+  "/media/add-profile",
+  [authMiddleware, mediaMiddleware.single("file")],
+  mediaController.single
+);
 mediaRoute.post("/media/remove-chord", authMiddleware, mediaController.remove);
 
 export default mediaRoute;
