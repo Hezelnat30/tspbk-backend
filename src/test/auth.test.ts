@@ -6,15 +6,17 @@ import UserModel from "../models/user.model";
 const testUsername = `testuser_${Date.now()}`;
 const testPassword = "password123";
 
-afterAll(async () => {
-  await mongoose.connection.close();
-  jest.clearAllMocks();
-});
-
 beforeAll(async () => {
   await UserModel.deleteMany({
-    username: { $regex: testUsername, $options: "i" },
+    username: { $regex: /^testuser_/, $options: "i" },
   });
+});
+afterAll(async () => {
+  await UserModel.deleteMany({
+    username: { $regex: /^testuser_/, $options: "i" },
+  });
+  await mongoose.connection.close();
+  jest.clearAllMocks();
 });
 
 describe("Auth API Endpoints", () => {
