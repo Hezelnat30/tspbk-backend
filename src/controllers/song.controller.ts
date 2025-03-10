@@ -66,21 +66,21 @@ export default {
         });
       }
 
+      const currentPage = Number(page);
       const result = await SongModel.find(query)
         .limit(limit)
-        .skip((page - 1) * limit)
+        .skip((currentPage - 1) * limit)
         .sort({ createdAt: -1 })
         .exec();
 
       const totalDoc = await SongModel.countDocuments(query);
-      const currentPage = Number(page);
 
       if (totalDoc === 0)
         return response.PAGINATION(
           res,
           result,
           {
-            current: currentPage,
+            current: Number(page),
             totalPages: Math.ceil(totalDoc / limit),
             totalData: totalDoc,
           },
@@ -91,7 +91,7 @@ export default {
         res,
         result,
         {
-          current: page,
+          current: currentPage,
           totalPages: Math.ceil(totalDoc / limit),
           totalData: totalDoc,
         },

@@ -42,3 +42,12 @@ export const addWorshipLeaderSchema = yup.object({
 });
 
 export const updateWorshipLeaderSchema = addWorshipLeaderSchema.partial();
+
+export const serviceDAO = yup.object({
+  date: yup.string().required("Date is required"),
+  musicDirector: yup.string().required("Music director is required"),
+  worshipLeader: yup.string().required("Worship leader is required"),
+  songList: yup.array().of(yup.string()).required("Song list is required"),
+});
+
+export const updateServiceSchema = serviceDAO.partial();

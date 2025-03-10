@@ -132,8 +132,6 @@ export default {
       const { id } = req.params as { id: string };
       const result = await WorshipLeaderModel.findById(id);
 
-      console.log({ id });
-
       if (!result) return response.ERROR(res, null, "Worship leader not found");
 
       return response.SUCCESS(

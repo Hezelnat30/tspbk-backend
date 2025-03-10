@@ -36,8 +36,10 @@ export default {
         password,
         user.password
       );
-      if (!passwordVerification)
-        return response.UNAUTHORIZED(res, "Invalid password");
+
+      if (!passwordVerification) {
+        return response.UNAUTHORIZED(res, null, "Invalid Password");
+      }
 
       const token = generateToken({
         role: user.role,

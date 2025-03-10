@@ -7,6 +7,7 @@ import songRoute from "./routes/song.route";
 import mediaRoute from "./routes/media.route";
 import dbConnection from "./utils/database";
 import worshipLeaderRoute from "./routes/worshipLeader.route";
+import serviceRoute from "./routes/service.route";
 
 const app = express();
 app.use(cors());
@@ -22,7 +23,13 @@ function init() {
       });
     });
 
-    const apiRoutes = [authRouter, songRoute, mediaRoute, worshipLeaderRoute];
+    const apiRoutes = [
+      authRouter,
+      songRoute,
+      mediaRoute,
+      worshipLeaderRoute,
+      serviceRoute,
+    ];
 
     apiRoutes.forEach((route) => app.use("/api/v1", route));
 
@@ -35,3 +42,5 @@ function init() {
 }
 
 init();
+
+export default app;
