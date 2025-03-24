@@ -15,6 +15,6 @@ mediaRoute.post(
   [authMiddleware, mediaMiddleware.single("file")],
   mediaController.single
 );
-mediaRoute.post("/media/remove-chord", authMiddleware, mediaController.remove);
+mediaRoute.delete("/media/remove", authMiddleware, mediaController.remove);
 
 export default mediaRoute;
