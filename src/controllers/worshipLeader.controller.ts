@@ -70,6 +70,8 @@ export default {
 
       const result = await WorshipLeaderModel.findByIdAndDelete(id);
 
+      if (!result) return response.ERROR(res, null, "Worship leader not found");
+
       return response.SUCCESS(
         res,
         200,

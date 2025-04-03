@@ -26,5 +26,10 @@ songRoute.get(
   [authMiddleware, aclMiddleware([ROLES.ADMIN])],
   songController.findOne
 );
+songRoute.delete(
+  "/song/delete/:id",
+  [authMiddleware, aclMiddleware([ROLES.ADMIN])],
+  songController.deleteSong
+);
 
 export default songRoute;

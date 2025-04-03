@@ -114,5 +114,20 @@ export default {
       return response.ERROR(res, error, "Failed to find a song");
     }
   },
+  async deleteSong(req: IReqUser, res: Response) {
+    try {
+      const { id } = req.params;
+
+      const existSong = await SongModel.findById(id);
+
+      if (!existSong) return response.ERROR(res, null, "Song not found");
+
+      const result = await SongModel.findByIdAndDelete(id);
+
+      return response.SUCCESS(res, 200, result, "Song deleted successfully");
+    } catch (error) {
+      return response.ERROR(res, error, "Failed to delete song");
+    }
+  },
   async getSongsByWorshipLeader(req: IReqUser, res: Response) {},
 };
